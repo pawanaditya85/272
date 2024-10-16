@@ -11,7 +11,7 @@
         <h1>Contact Us</h1>
         <nav>
             <ul>
-                <li><a href="index.html">Home</a></li>
+                <li><a href="home.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="news.html">News</a></li>
                 <li><a href="contact.php">Contact</a></li>
