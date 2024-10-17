@@ -38,9 +38,17 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            margin-right: 10px;
         }
         .login-container button:hover {
             background-color: #0056b3;
+        }
+        .back-button {
+            background-color: #6c757d;
+            margin-top: 10px;
+        }
+        .back-button:hover {
+            background-color: #5a6268;
         }
     </style>
 </head>
@@ -52,6 +60,10 @@
             <input type="password" name="password" placeholder="Enter Password" required>
             <button type="submit">Login</button>
         </form>
+        <!-- Back to Index Page button -->
+        <a href="index.html">
+            <button class="back-button">Back to Index Page</button>
+        </a>
     </div>
 </body>
 </html>
