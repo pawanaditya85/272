@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gender Reveal Shoot - Pawan Aditya Photography Business</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body and Font Styling */
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        /* Header Styling */
+        header {
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            padding: 20px 0;
+            color: white;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Logo Text Styling */
+        .logo h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        /* Navigation Bar Styling */
+        nav ul {
+            list-style-type: none;
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: bold;
+            padding: 8px 15px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+        }
+
+        /* Service Detail Section Styling */
+        .service-detail {
+            text-align: center;
+            padding: 20px;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .service-detail img {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .service-detail h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .service-detail p {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #6a11cb;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-link:hover {
+            background-color: #2575fc;
+        }
+    </style>
+    <script>
+        // Set this service as last visited
+        function setLastVisited() {
+            let lastVisited = getCookie('lastVisited') || "";
+            let visitedList = lastVisited ? lastVisited.split(',') : [];
+
+            if (!visitedList.includes('Gender Reveal Shoot')) {
+                if (visitedList.length >= 5) {
+                    visitedList.shift(); // Remove the oldest item
+                }
+                visitedList.push('Gender Reveal Shoot');
+                document.cookie = "lastVisited=" + visitedList.join(',') + ";path=/";
+            }
+        }
+
+        // Helper function to retrieve a cookie
+        function getCookie(name) {
+            let cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                let cookie = cookies[i].trim();
+                if (cookie.indexOf(name + "=") === 0) {
+                    return cookie.substring(name.length + 1);
+                }
+            }
+            return "";
+        }
+
+        window.onload = setLastVisited;
+    </script>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>Gender Reveal Shoot</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="news.html">News</a></li>
+                <li><a href="contact.php">Contact</a></li>
+                <li><a href="login.html">Admin Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="service-detail">
+            <img src="images/service6.jpg" alt="Gender Reveal Shoot">
+            <h2>Gender Reveal Shoot</h2>
+            <p>Make your gender reveal unforgettable with our photography service. From surprise moments to joyful reactions, we capture every detail, preserving the excitement and anticipation as you share the news with loved ones.</p>
+            <a href="services.html" class="back-link">Back to Services</a>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Photography Business - Use of photos is for educational purposes only.</p>
+    </footer>
+</body>
+</html>

@@ -26,6 +26,20 @@
             text-align: center;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
+        .experience {
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* Style for the photo display, 4 times bigger */
+        .news-photo img {
+            width: 400%; /* This makes the image 4 times bigger */
+            margin: 20px auto;
+            display: block;
+            max-width: 100%; /* Ensures the image doesn't overflow the container */
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
     
         /* Logo Text Styling */
         .logo h1 {
@@ -84,6 +98,7 @@
             font-size: 0.9rem;
             color: #666;
         }
+        
     </style>    
 </head>
 <body>
@@ -101,16 +116,12 @@
         </nav>
     </header>
 
-    <section class="news-section">
-        <article class="news-item">
-            <div class="news-content">
-                <h2>Experience</h2>
-                <p>I have been member of photography club during my bachelors and activily contributed to my club by participating in many events.</p>
-            </div>
-            <div class="news-image">
-                <img src="images/news.png" alt="Photography Projects" />
-            </div>
-        </article>
+    <section class="experience">
+        <h2>Experience</h2>
+            <p>I have been member of photography club during my bachelors and activily contributed to my club by participating in many events.</p>
+    </section>
+    <section class="news-photo">
+        <img src="images/p5.png" alt="News Photo">
     </section>
 </body>
 </html>

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pawan Aditya Photography Business - Services</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body and Font Styling */
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        /* Header Styling */
+        header {
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            padding: 20px 0;
+            color: white;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Logo Text Styling */
+        .logo h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .logo h2 {
+            font-size: 1.2rem;
+            font-weight: 300;
+        }
+
+        /* Navigation Bar Styling */
+        nav ul {
+            list-style-type: none;
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: bold;
+            padding: 8px 15px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+        }
+
+        /* Services Section Styling */
+        .services-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 2 columns layout */
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .service-item {
+            background-color: #f8f8f8;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .service-item:hover {
+            transform: scale(1.05); /* Add hover effect */
+        }
+
+        .service-item img {
+            width: 100%;
+            height: auto;
+        }
+
+        .service-info {
+            padding: 15px;
+        }
+
+        .service-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .service-info p {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        .service-info a {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 15px;
+            background-color: #6a11cb;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .service-info a:hover {
+            background-color: #2575fc;
+        }
+
+        /* Section for Last Visited Products */
+        #visited-products {
+            margin: 20px 0;
+            padding: 10px;
+            background-color: #f0f0f0;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .show-visited-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #2575fc;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .show-visited-btn:hover {
+            background-color: #6a11cb;
+        }
+    </style>
+    <script>
+        // JavaScript to handle cookies for tracking last visited products
+        function setLastVisited(product) {
+            let lastVisited = getCookie('lastVisited') || "";
+            let visitedList = lastVisited ? lastVisited.split(',') : [];
+
+            if (!visitedList.includes(product)) {
+                if (visitedList.length >= 5) {
+                    visitedList.shift(); // Remove the oldest item
+                }
+                visitedList.push(product);
+                document.cookie = "lastVisited=" + visitedList.join(',') + ";path=/";
+            }
+        }
+
+        // Helper function to retrieve a cookie
+        function getCookie(name) {
+            let cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                let cookie = cookies[i].trim();
+                if (cookie.indexOf(name + "=") === 0) {
+                    return cookie.substring(name.length + 1);
+                }
+            }
+            return "";
+        }
+
+        // Function to display last visited products
+        function showLastVisited() {
+            let lastVisited = getCookie('lastVisited');
+            if (lastVisited) {
+                document.getElementById('visited-products').innerHTML = "Last Visited Products: " + lastVisited.split(',').join(', ');
+            }
+        }
+
+        window.onload = showLastVisited;
+    </script>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>Professional Photographer</h1>
+            <h2>Welcome to my website</h2>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="news.html">News</a></li>
+                <li><a href="contact.php">Contact</a></li>
+                <li><a href="login.html">Admin Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Our Services</h2>
+        <div class="services-container">
+            <div class="service-item">
+                <img src="images/service1.jpg" alt="Service 1">
+                <div class="service-info">
+                    <h3>Birthday Shoot</h3>
+                    <p>Capture every joyful moment of your special day with our birthday shoot service.</p>
+                    <a href="service1.html" onclick="setLastVisited('Birthday Shoot')">Learn More</a>
+                </div>
+            </div>
+            <div class="service-item">
+                <img src="images/service2.jpg" alt="Service 2">
+                <div class="service-info">
+                    <h3>Wedding Shoot</h3>
+                    <p>Our wedding shoot service captures the magic and romance of your big day.</p>
+                    <a href="service2.html" onclick="setLastVisited('Wedding Shoot')">Learn More</a>
+                </div>
+            </div>
+            <div class="service-item">
+                <img src="images/service3.jpg" alt="Service 3">
+                <div class="service-info">
+                    <h3>Proposal Shoot</h3>
+                    <p>Preserve the excitement and emotion of your proposal with our proposal shoot service.</p>
+                    <a href="service3.html" onclick="setLastVisited('Proposal Shoot')">Learn More</a>
+                </div>
+            </div>
+            <div class="service-item">
+                <img src="images/service4.jpg" alt="Service 4">
+                <div class="service-info">
+                    <h3>Graduation Shoot</h3>
+                    <p>Celebrate your achievements with our graduation shoot service.</p>
+                    <a href="service4.html" onclick="setLastVisited('Graduation Shoot')">Learn More</a>
+                </div>
+            </div>
+            <div class="service-item">
+                <img src="images/service5.jpg" alt="Service 5">
+                <div class="service-info">
+                    <h3>Baby Shower Shoot</h3>
+                    <p>Celebrate the upcoming arrival with our baby shower shoot service.</p>
+                    <a href="service5.html" onclick="setLastVisited('Baby Shower Shoot')">Learn More</a>
+                </div>
+            </div>
+            <div class="service-item">
+                <img src="images/service6.jpg" alt="Service 6">
+                <div class="service-info">
+                    <h3>Gender Reveal Shoot</h3>
+                    <p>Make your gender reveal unforgettable with our photography service.</p>
+                    <a href="service6.html" onclick="setLastVisited('Gender Reveal Shoot')">Learn More</a>
+                </div>
+            </div>
+            <div class="service-item">
+                <img src="images/service7.jpg" alt="Service 7">
+                <div class="service-info">
+                    <h3>Destination Wedding Shoot</h3>
+                    <p>Turn your dream wedding location into a stunning backdrop with our destination wedding shoot.</p>
+                    <a href="service7.html" onclick="setLastVisited('Destination Wedding Shoot')">Learn More</a>
+                </div>
+            </div>
+            <div class="service-item">
+                <img src="images/service8.jpg" alt="Service 8">
+                <div class="service-info">
+                    <h3>Corporate Event Shoot</h3>
+                    <p>Capture the professionalism and energy of your corporate gatherings with our corporate events photography service.</p>
+                    <a href="service8.html" onclick="setLastVisited('Corporate Event Shoot')">Learn More</a>
+                </div>
+            </div>
+            <div class="service-item">
+                <img src="images/service9.jpg" alt="Service 9">
+                <div class="service-info">
+                    <h3>Professional Concerts Shoot</h3>
+                    <p>Bring the energy and excitement of your concert to life with our professional concert photography service.</p>
+                    <a href="service9.html" onclick="setLastVisited('Professional Concerts Shoot')">Learn More</a>
+                </div>
+            </div>
+            <div class="service-item">
+                <img src="images/service10.jpg" alt="Service 10">
+                <div class="service-info">
+                    <h3>Custom Event Booking</h3>
+                    <p>Tailored to fit any occasion, our custom event booking service offers personalized photography.</p>
+                    <a href="service10.html" onclick="setLastVisited('Custom Event Booking')">Learn More</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Button to show last visited products -->
+        <div>
+            <a class="show-visited-btn" onclick="showLastVisited()">Show Last 5 Visited Services</a>
+        </div>
+
+        <!-- Section to display last visited products -->
+        <div id="visited-products">
+            Last Visited Products: (Will be displayed here)
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Photography Business - Use of photos is for educational purposes only.</p>
+    </footer>
+</body>
+</html>
