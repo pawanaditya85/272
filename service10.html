@@ -101,20 +101,46 @@
         .back-link:hover {
             background-color: #2575fc;
         }
+
+        /* Styling for Last Visited Section */
+        #visited-products {
+            margin: 20px 0;
+            padding: 10px;
+            background-color: #f0f0f0;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        #visited-products a {
+            display: block;
+            color: #6a11cb;
+            text-decoration: none;
+            margin: 5px 0;
+        }
+
+        #visited-products a:hover {
+            color: #2575fc;
+        }
     </style>
     <script>
         // Set this service as last visited
         function setLastVisited() {
             let lastVisited = getCookie('lastVisited') || "";
-            let visitedList = lastVisited ? lastVisited.split(',') : [];
+            let visitedList = lastVisited ? JSON.parse(lastVisited) : [];
 
-            if (!visitedList.includes('Custom Event Booking')) {
-                if (visitedList.length >= 5) {
-                    visitedList.shift(); // Remove the oldest item
-                }
-                visitedList.push('Custom Event Booking');
-                document.cookie = "lastVisited=" + visitedList.join(',') + ";path=/";
+            // Ensure we don't have duplicates and remove old ones if needed
+            visitedList = visitedList.filter(item => item.name !== 'Custom Event Booking');
+
+            if (visitedList.length >= 5) {
+                visitedList.shift(); // Remove the oldest item
             }
+
+            // Add the current service with its URL
+            visitedList.push({ name: 'Custom Event Booking', url: 'service10.html' });
+
+            // Store the updated list in cookies
+            document.cookie = "lastVisited=" + JSON.stringify(visitedList) + ";path=/";
         }
 
         // Helper function to retrieve a cookie
@@ -129,7 +155,25 @@
             return "";
         }
 
-        window.onload = setLastVisited;
+        // Display the last visited services as clickable links
+        function showLastVisited() {
+            let lastVisited = getCookie('lastVisited');
+            if (lastVisited) {
+                let visitedList = JSON.parse(lastVisited);
+                let visitedHtml = "Last Visited Services:<br>";
+
+                visitedList.forEach(service => {
+                    visitedHtml += `<a href="${service.url}">${service.name}</a>`;
+                });
+
+                document.getElementById('visited-products').innerHTML = visitedHtml;
+            }
+        }
+
+        window.onload = function() {
+            setLastVisited();
+            showLastVisited();
+        };
     </script>
 </head>
 <body>
@@ -154,7 +198,12 @@
             <img src="images/service10.jpg" alt="Custom Event Booking">
             <h2>Custom Event Booking</h2>
             <p>Tailored to fit any occasion, our custom event booking service offers personalized photography for your unique gatherings. Whether it’s an intimate celebration or a large-scale event, we capture the essence of your special moments with a professional touch.</p>
-            <a href="services.html" class="back-link">Back to Services</a>
+            <a href="service.html" class="back-link">Back to Services</a>
+        </div>
+
+        <!-- Section to display last visited products -->
+        <div id="visited-products">
+            Last Visited Services: (Will be displayed here)
         </div>
     </main>
 

@@ -65,10 +65,11 @@
         }
 
         /* Services Section Styling */
+        /* Services Section Styling */
         .services-container {
             display: grid;
-            grid-template-columns: repeat(2, 1fr); /* 2 columns layout */
-            gap: 20px;
+            grid-template-columns: repeat(3, 1fr); /* 3 columns layout */
+            gap: 20px; /* Adjust gap between the services */
             padding: 20px;
         }
 
@@ -79,35 +80,37 @@
             overflow: hidden;
             text-align: center;
             transition: transform 0.3s ease;
+            padding: 10px; /* Add padding for a smaller size */
         }
 
         .service-item:hover {
-            transform: scale(1.05); /* Add hover effect */
+            transform: scale(1.05); /* Hover effect */
         }
 
         .service-item img {
-            width: 100%;
+            width: 100%; /* Make sure the images fit within the grid */
+            max-width: 250px; /* Restrict the width of the images to make them smaller */
             height: auto;
         }
 
         .service-info {
-            padding: 15px;
+            padding: 10px; /* Smaller padding for the text */
         }
 
         .service-info h3 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
+            font-size: 1.2rem; /* Smaller heading */
+            margin-bottom: 5px;
         }
 
         .service-info p {
-            font-size: 1rem;
+            font-size: 0.9rem; /* Smaller text */
             color: #666;
         }
 
         .service-info a {
             display: inline-block;
-            margin-top: 10px;
-            padding: 8px 15px;
+            margin-top: 5px;
+            padding: 6px 10px;
             background-color: #6a11cb;
             color: white;
             text-decoration: none;
@@ -118,6 +121,7 @@
         .service-info a:hover {
             background-color: #2575fc;
         }
+
 
         /* Section for Last Visited Products */
         #visited-products {
@@ -146,21 +150,27 @@
         }
     </style>
     <script>
-        // JavaScript to handle cookies for tracking last visited products
-        function setLastVisited(product) {
+        // Set this service as last visited and store service name with URL
+        function setLastVisited(serviceName, serviceUrl) {
             let lastVisited = getCookie('lastVisited') || "";
-            let visitedList = lastVisited ? lastVisited.split(',') : [];
-
-            if (!visitedList.includes(product)) {
-                if (visitedList.length >= 5) {
-                    visitedList.shift(); // Remove the oldest item
-                }
-                visitedList.push(product);
-                document.cookie = "lastVisited=" + visitedList.join(',') + ";path=/";
+            let visitedList = lastVisited ? JSON.parse(lastVisited) : [];
+    
+            // Check if service already exists, and remove if so
+            visitedList = visitedList.filter(item => item.name !== serviceName);
+    
+            // Limit the list to 5 items, if more than 5, remove the oldest
+            if (visitedList.length >= 5) {
+                visitedList.shift(); // Remove the oldest item
             }
+    
+            // Add the new service to the visited list
+            visitedList.push({ name: serviceName, url: serviceUrl });
+    
+            // Store the updated list in cookies
+            document.cookie = "lastVisited=" + JSON.stringify(visitedList) + ";path=/";
         }
-
-        // Helper function to retrieve a cookie
+    
+        // Helper function to retrieve a cookie by name
         function getCookie(name) {
             let cookies = document.cookie.split(';');
             for (let i = 0; i < cookies.length; i++) {
@@ -171,17 +181,25 @@
             }
             return "";
         }
-
-        // Function to display last visited products
+    
+        // Display the last 5 visited services with clickable links
         function showLastVisited() {
             let lastVisited = getCookie('lastVisited');
             if (lastVisited) {
-                document.getElementById('visited-products').innerHTML = "Last Visited Products: " + lastVisited.split(',').join(', ');
+                let visitedList = JSON.parse(lastVisited);
+                let visitedHtml = "Last Visited Services: <br>";
+    
+                visitedList.forEach(service => {
+                    visitedHtml += `<a href="${service.url}">${service.name}</a><br>`;
+                });
+    
+                document.getElementById('visited-products').innerHTML = visitedHtml;
             }
         }
-
+    
+        // Call showLastVisited on page load
         window.onload = showLastVisited;
-    </script>
+    </script>    
 </head>
 <body>
     <header>
@@ -293,7 +311,7 @@
 
         <!-- Section to display last visited products -->
         <div id="visited-products">
-            Last Visited Products: (Will be displayed here)
+            Last Visited services: (Will be displayed here)
         </div>
     </main>
 
