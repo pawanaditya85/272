@@ -40,7 +40,8 @@ $all_users = array_merge($companyA_users, $companyB_users);
 echo "<h1>Users from All Companies</h1>";
 echo "<ul>";
 foreach ($all_users as $user) {
-    echo "<li>" . htmlspecialchars($user) . "</li>"; // Using htmlspecialchars to prevent XSS
+    $userName = is_array($user) ? $user['name'] : $user;
+    echo "<li>" . htmlspecialchars($userName) . "</li>";
 }
 echo "</ul>";
 
