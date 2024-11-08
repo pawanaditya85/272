@@ -16,25 +16,34 @@ function fetch_users($url) {
     curl_close($curl);
     return json_decode($result, true);
 }
+
 // Local users list from usersA.php
 $localUsers = json_decode(file_get_contents("http://pawanaditya.tech/users.php"), true);
+$annotatedLocalUsers = array_map(function($user) {
+    return $user . " (Local)"; // Add annotation for local users
+}, $localUsers);
 
 // URLs of the remote user lists
 $remoteUrls = [
-    "http://companyb.com/usersB.php", // Assuming this is accessible
+    "http://www.hsamreen.infinityfreeapp.com/user_list.php", // Assuming this is accessible
     "http://companyc.com/usersC.php",
-    "http://companyc.com/usersC.php"  // Assuming this is accessible
+    "http://companyd.com/usersD.php"  // Assuming this is accessible, corrected a repeated URL
 ];
 
-// Fetch remote users
+// Fetch and annotate remote users
+$allUsers = $annotatedLocalUsers; // Start with local users already annotated
 foreach ($remoteUrls as $url) {
     $remoteUsers = fetch_users($url);
-    $localUsers = array_merge($localUsers, $remoteUsers);
+    $annotatedRemoteUsers = array_map(function($user) use ($url) {
+        $domain = parse_url($url, PHP_URL_HOST); // Extract domain from URL
+        return $user . " (" . $domain . ")"; // Add domain as annotation
+    }, $remoteUsers);
+    $allUsers = array_merge($allUsers, $annotatedRemoteUsers); // Merge with previous list
 }
 
-// Display all users
+// Display all users with annotations
 echo "<ul>";
-foreach ($localUsers as $user) {
+foreach ($allUsers as $user) {
     echo "<li>$user</li>";
 }
 echo "</ul>";
