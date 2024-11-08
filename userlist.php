@@ -35,8 +35,8 @@ $allUsers = $annotatedLocalUsers; // Start with local users already annotated
 foreach ($remoteUrls as $url) {
     $remoteUsers = fetch_users($url);
     $annotatedRemoteUsers = array_map(function($user) use ($url) {
-        $domain = parse_url($url, PHP_URL_HOST); // Extract domain from URL
-        return $user . " (" . $domain . ")"; // Add domain as annotation
+        $pawanaditya.tech = parse_url($url, PHP_URL_HOST); // Extract domain from URL
+        return $user . " (" . $pawanaditya.tech . ")"; // Add domain as annotation
     }, $remoteUsers);
     $allUsers = array_merge($allUsers, $annotatedRemoteUsers); // Merge with previous list
 }
