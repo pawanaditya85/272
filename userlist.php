@@ -7,18 +7,26 @@ function fetch_users($url) {
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // Keep this if SSL certificate validation is not needed
     $result = curl_exec($ch);
     if (!$result) {
-        die('Curl error: "' . curl_error($ch) . '" - Code: ' . curl_errno($ch));
+        echo 'Curl error: "' . curl_error($ch) . '" - Code: ' . curl_errno($ch);
+        curl_close($ch);
+        return null;
     }
     curl_close($ch);
     return json_decode($result, true);
 }
 
-//$companyA_users = fetch_users('http://pawanaditya.tech/users.php');
-//echo "<pre>";
-//print_r($companyA_users);
-//echo "</pre>";
+$companyA_users = fetch_users('https://pawanaditya.tech/users.php');
+echo "<pre>";
+if ($companyA_users) {
+    print_r($companyA_users);
+} else {
+    echo "Failed to fetch users.";
+}
+echo "</pre>";
+
 echo "If you see this, PHP is running fine up to here.";
 ?>
+
