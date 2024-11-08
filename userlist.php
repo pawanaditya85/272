@@ -1,49 +1,27 @@
 <?php
-header("Content-Type: text/html");
-header("Access-Control-Allow-Origin: *"); // Enable CORS
-
-// Function to fetch remote user data
 function fetch_users($url) {
-    $curl = curl_init();
-    curl_setopt($curl, CURLOPT_URL, $url);
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($curl, CURLOPT_TIMEOUT, 30);
-    $result = curl_exec($curl);
-    if (!$result) {
-        curl_close($curl);
-        return ["Error retrieving data"]; // Handling connection failure
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // Not recommended for production, only use if SSL/TLS certificates are not configured
+    $result = curl_exec($ch);
+    if (curl_errno($ch)) {
+        echo 'Curl error: ' . curl_error($ch);
     }
-    curl_close($curl);
+    curl_close($ch);
     return json_decode($result, true);
 }
 
-// Local users list from usersA.php
-$localUsers = json_decode(file_get_contents("http://pawanaditya.tech/users.php"), true);
-$annotatedLocalUsers = array_map(function($user) {
-    return $user . " (Local)"; // Add annotation for local users
-}, $localUsers);
+// Adjust the URLs to point to where the files are actually hosted
+$companyA_users = fetch_users('http://pawanaditya.tech/users.php'); // Your server
+$companyB_users = fetch_users('http://teammateBdomain.com/companyB.php'); // Teammate's domain for Company B
+$companyC_users = fetch_users('http://teammateCdomain.com/companyC.php'); // Teammate's domain for Company C
 
-// URLs of the remote user lists
-$remoteUrls = [
-    "http://www.hsamreen.infinityfreeapp.com/user_list.php", // Assuming this is accessible
-    "http://companyc.com/usersC.php",
-    "http://companyd.com/usersD.php"  // Assuming this is accessible, corrected a repeated URL
-];
+$all_users = array_merge($companyA_users, $companyB_users, $companyC_users);
 
-// Fetch and annotate remote users
-$allUsers = $annotatedLocalUsers; // Start with local users already annotated
-foreach ($remoteUrls as $url) {
-    $remoteUsers = fetch_users($url);
-    $annotatedRemoteUsers = array_map(function($user) use ($url) {
-        $pawanaditya.tech = parse_url($url, PHP_URL_HOST); // Extract domain from URL
-        return $user . " (" . $pawanaditya.tech . ")"; // Add domain as annotation
-    }, $remoteUsers);
-    $allUsers = array_merge($allUsers, $annotatedRemoteUsers); // Merge with previous list
-}
-
-// Display all users with annotations
 echo "<ul>";
-foreach ($allUsers as $user) {
+foreach ($all_users as $user) {
     echo "<li>$user</li>";
 }
 echo "</ul>";

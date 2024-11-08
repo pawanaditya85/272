@@ -1,6 +1,6 @@
 <?php
-header("Content-Type: application/json");
-header("Access-Control-Allow-Origin: *"); // Enable CORS to allow fetching this data remotely
+header("Access-Control-Allow-Origin: *"); // Allowing all domains for demonstration purposes, replace '*' with specific domain names for security
 
-echo json_encode(["Aditya", "Balakrishna", "Charan"]); // Example user list
+$list_of_users_A = ['Aditya', 'Balakrishna', 'Charan'];
+echo json_encode($list_of_users_A);
 ?>
