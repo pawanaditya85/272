@@ -15,7 +15,7 @@ function fetch_users($url) {
 
 // Adjust the URLs to point to where the files are actually hosted
 $companyA_users = fetch_users('http://pawanaditya.tech/users.php'); // Your server
-$companyB_users = fetch_users('https://ninjacoder.tech/users/get_local_users.php'); // Teammate's domain for Company B
+//$companyB_users = fetch_users('https://ninjacoder.tech/users/get_local_users.php'); // Teammate's domain for Company B
 //$companyC_users = fetch_users('http://teammateCdomain.com/companyC.php'); // Teammate's domain for Company C
 
 $all_users = array_merge($companyA_users, $companyB_users, $companyC_users);
