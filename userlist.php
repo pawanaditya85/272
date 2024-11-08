@@ -20,4 +20,5 @@ function fetch_users($url) {
 //echo "<pre>";
 //print_r($companyA_users);
 //echo "</pre>";
+echo "If you see this, PHP is running fine up to here.";
 ?>
