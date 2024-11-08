@@ -16,8 +16,8 @@ function fetch_users($url) {
     return json_decode($result, true);
 }
 
-$companyA_users = fetch_users('http://pawanaditya.tech/users.php');
-echo "<pre>";
-print_r($companyA_users);
-echo "</pre>";
+//$companyA_users = fetch_users('http://pawanaditya.tech/users.php');
+//echo "<pre>";
+//print_r($companyA_users);
+//echo "</pre>";
 ?>
