@@ -22,24 +22,44 @@ function fetch_users($url) {
 
 // URLs for each company
 $companyA_url = 'https://pawanaditya.tech/users.php';
-$companyB_url = 'https://ninjacoder.tech/users/get_local_users.php';
-//$companyC_url = 'https://teammateCdomain.com/companyC.php';
-//$companyD_url = 'https://teammateDdomain.com/companyD.php';
+$companyB_url = 'https://pawanaditya.tech/user1.php';
+$companyC_url = 'https://pawanaditya.tech/user2.php';
+$companyD_url = 'https://pawanaditya.tech/user3.php';
 
 // Fetching users from each company
 $companyA_users = fetch_users($companyA_url);
 $companyB_users = fetch_users($companyB_url);
-//$companyC_users = fetch_users($companyC_url);
-//$companyD_users = fetch_users($companyD_url);
+$companyC_users = fetch_users($companyC_url);
+$companyD_users = fetch_users($companyD_url);
 
-// Combining all users into one array
-//$all_users = array_merge($companyA_users, $companyB_users, $companyC_users, $companyD_users);
-$all_users = array_merge($companyA_users, $companyB_users);
-
-// Outputting the fetched data
-echo "<h1>Users from All Companies</h1>";
+// Outputting the fetched data under separate subheadings
+echo "<h1>Users from Company A</h1>";
 echo "<ul>";
-foreach ($all_users as $user) {
+foreach ($companyA_users as $user) {
+    $userName = is_array($user) ? $user['name'] : $user;
+    echo "<li>" . htmlspecialchars($userName) . "</li>";
+}
+echo "</ul>";
+
+echo "<h1>Users from Company B</h1>";
+echo "<ul>";
+foreach ($companyB_users as $user) {
+    $userName = is_array($user) ? $user['name'] : $user;
+    echo "<li>" . htmlspecialchars($userName) . "</li>";
+}
+echo "</ul>";
+
+echo "<h1>Users from Company C</h1>";
+echo "<ul>";
+foreach ($companyC_users as $user) {
+    $userName = is_array($user) ? $user['name'] : $user;
+    echo "<li>" . htmlspecialchars($userName) . "</li>";
+}
+echo "</ul>";
+
+echo "<h1>Users from Company D</h1>";
+echo "<ul>";
+foreach ($companyD_users as $user) {
     $userName = is_array($user) ? $user['name'] : $user;
     echo "<li>" . htmlspecialchars($userName) . "</li>";
 }
