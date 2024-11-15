@@ -96,6 +96,7 @@
                 <li><a href="service.html">Services</a></li>
                 <li><a href="news.html">News</a></li>
                 <li><a href="contact.php">Contact</a></li>
+                <li><a href="user_management.php">User Management</a></li>
                 <li><a href="login.html">Admin Login</a></li>
             </ul>
         </nav>
