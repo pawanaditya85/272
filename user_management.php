@@ -53,7 +53,7 @@
         <!-- PHP Code to Handle Form Submissions and Display Results -->
         <?php
         // Database connection
-        $conn = new mysqli('your-database-host', 'your-username', 'your-password', 'photography_userdb');
+        $conn = new mysqli('127.0.0.1', 'admin', 'Aditya@830', 'photography_userdb');
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
