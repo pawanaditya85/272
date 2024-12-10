@@ -58,6 +58,8 @@
         // Check connection
         if ($conn->connect_error) {
             die("<p>Connection failed: " . $conn->connect_error . "</p>");
+        } else {
+            echo "<p>Debug: Database connection successful!</p>"; // Debugging output
         }
 
         // Handle User Creation
@@ -77,7 +79,7 @@
             if ($conn->query($sql) === TRUE) {
                 echo "<p>New user created successfully</p>";
             } else {
-                echo "<p>Error: " . $conn->error . "</p>";
+                echo "<p>Error in user creation: " . $conn->error . "</p>";
             }
         }
 
@@ -85,6 +87,7 @@
         if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['search_user'])) {
             // Sanitize search input
             $search = $conn->real_escape_string($_GET['search']);
+            echo "<p>Debug: Search term is '$search'</p>"; // Debugging output
 
             // Query the database
             $sql = "SELECT * FROM users WHERE 
@@ -93,6 +96,7 @@
                     email LIKE '%$search%' OR 
                     home_phone LIKE '%$search%' OR 
                     cell_phone LIKE '%$search%'";
+            echo "<p>Debug: Executing query: $sql</p>"; // Debugging output
 
             $result = $conn->query($sql);
 
