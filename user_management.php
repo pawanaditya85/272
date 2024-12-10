@@ -53,40 +53,55 @@
         <!-- PHP Code to Handle Form Submissions and Display Results -->
         <?php
         // Database connection
-        $conn = new mysqli('127.0.0.1', 'admin', 'Aditya@830', 'photography_userdb');
+        $conn = new mysqli('127.0.0.1', 'user', 'aditya123', 'user_management'); // Replace with your credentials
+
+        // Check connection
         if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
+            die("<p>Connection failed: " . $conn->connect_error . "</p>");
         }
 
         // Handle User Creation
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['create_user'])) {
-            $first_name = $_POST['first_name'];
-            $last_name = $_POST['last_name'];
-            $email = $_POST['email'];
-            $home_address = $_POST['home_address'];
-            $home_phone = $_POST['home_phone'];
-            $cell_phone = $_POST['cell_phone'];
+            // Sanitize user inputs
+            $first_name = $conn->real_escape_string($_POST['first_name']);
+            $last_name = $conn->real_escape_string($_POST['last_name']);
+            $email = $conn->real_escape_string($_POST['email']);
+            $home_address = $conn->real_escape_string($_POST['home_address']);
+            $home_phone = $conn->real_escape_string($_POST['home_phone']);
+            $cell_phone = $conn->real_escape_string($_POST['cell_phone']);
 
+            // Insert into the database
             $sql = "INSERT INTO users (first_name, last_name, email, home_address, home_phone, cell_phone)
                     VALUES ('$first_name', '$last_name', '$email', '$home_address', '$home_phone', '$cell_phone')";
 
             if ($conn->query($sql) === TRUE) {
                 echo "<p>New user created successfully</p>";
             } else {
-                echo "<p>Error: " . $sql . "<br>" . $conn->error . "</p>";
+                echo "<p>Error: " . $conn->error . "</p>";
             }
         }
 
         // Handle User Search
         if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['search_user'])) {
-            $search = $_GET['search'];
-            $sql = "SELECT * FROM users WHERE first_name LIKE '%$search%' OR last_name LIKE '%$search%' OR email LIKE '%$search%' OR home_phone LIKE '%$search%' OR cell_phone LIKE '%$search%'";
+            // Sanitize search input
+            $search = $conn->real_escape_string($_GET['search']);
+
+            // Query the database
+            $sql = "SELECT * FROM users WHERE 
+                    first_name LIKE '%$search%' OR 
+                    last_name LIKE '%$search%' OR 
+                    email LIKE '%$search%' OR 
+                    home_phone LIKE '%$search%' OR 
+                    cell_phone LIKE '%$search%'";
+
             $result = $conn->query($sql);
 
             echo "<h2>Search Results</h2>";
             if ($result->num_rows > 0) {
-                while($row = $result->fetch_assoc()) {
-                    echo "Name: " . $row["first_name"]. " " . $row["last_name"]. " - Email: " . $row["email"]. " - Phone: " . $row["home_phone"] . " / " . $row["cell_phone"] . "<br>";
+                while ($row = $result->fetch_assoc()) {
+                    echo "<p>Name: " . htmlspecialchars($row["first_name"]) . " " . htmlspecialchars($row["last_name"]) . 
+                         " - Email: " . htmlspecialchars($row["email"]) . 
+                         " - Phone: " . htmlspecialchars($row["home_phone"]) . " / " . htmlspecialchars($row["cell_phone"]) . "</p>";
                 }
             } else {
                 echo "<p>No results found</p>";
@@ -98,7 +113,7 @@
         ?>
     </main>
 
-    <!-- Footer (same as index.html) -->
+    <!-- Footer -->
     <footer>
         <p>&copy; 2024 Photography Business</p>
     </footer>
